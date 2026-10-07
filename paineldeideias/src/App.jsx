@@ -31,6 +31,10 @@ function App() {
     );
   }
 
+  function removerIdea(id) {
+    setIdeas(ideas.filter((idea) => idea.id !== id));
+  }
+
   return (
     <div>
       <h1>Ideias do jvmenez</h1>
@@ -57,6 +61,8 @@ function App() {
             <span className={idea.feita ? "riscado" : ""}>
               {idea.text}
             </span>
+
+            <button onClick={() => removerIdea(idea.id)}>✕</button>
           </li>
         ))}
       </ul>
