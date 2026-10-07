@@ -35,6 +35,9 @@ function App() {
     setIdeas(ideas.filter((idea) => idea.id !== id));
   }
 
+  const total = ideas.length;
+const concluidas = ideas.filter((idea) => idea.feita).length;
+
   return (
     <div>
       <h1>Ideias do jvmenez</h1>
@@ -69,5 +72,9 @@ function App() {
     </div>
   );
 }
+<footer>
+  {`${total} ideias no painel · ${concluidas} concluídas`}
+</footer>
+
 
 export default App;
