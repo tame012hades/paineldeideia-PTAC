@@ -14,10 +14,21 @@ function App() {
     const newIdea = {
       id: Date.now(),
       text: idea,
+      feita: false,
     };
 
     setIdeas([...ideas, newIdea]);
     setIdea("");
+  }
+
+  function marcarComoFeita(id) {
+    setIdeas(
+      ideas.map((idea) =>
+        idea.id === id
+          ? { ...idea, feita: !idea.feita }
+          : idea
+      )
+    );
   }
 
   return (
@@ -36,7 +47,17 @@ function App() {
 
       <ul>
         {ideas.map((idea) => (
-          <li key={idea.id}>{idea.text}</li>
+          <li key={idea.id}>
+            <input
+              type="checkbox"
+              checked={idea.feita}
+              onChange={() => marcarComoFeita(idea.id)}
+            />
+
+            <span className={idea.feita ? "riscado" : ""}>
+              {idea.text}
+            </span>
+          </li>
         ))}
       </ul>
     </div>
