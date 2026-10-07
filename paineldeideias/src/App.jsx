@@ -3,11 +3,13 @@ import { useState } from "react";
 function App() {
   const [idea, setIdea] = useState("");
   const [ideas, setIdeas] = useState([]);
+  const [erro, setErro] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
 
     if (idea.trim() === "") {
+      setErro("Digite sua ideia antes de adicionar.");
       return;
     }
 
@@ -19,6 +21,7 @@ function App() {
 
     setIdeas([...ideas, newIdea]);
     setIdea("");
+    setErro("");
   }
 
   function marcarComoFeita(id) {
@@ -36,7 +39,7 @@ function App() {
   }
 
   const total = ideas.length;
-const concluidas = ideas.filter((idea) => idea.feita).length;
+  const concluidas = ideas.filter((idea) => idea.feita).length;
 
   return (
     <div>
@@ -45,12 +48,17 @@ const concluidas = ideas.filter((idea) => idea.feita).length;
       <form onSubmit={handleSubmit}>
         <input
           value={idea}
-          onChange={(event) => setIdea(event.target.value)}
+          onChange={(event) => {
+            setIdea(event.target.value);
+            setErro("");
+          }}
           placeholder="Digite uma ideia"
         />
 
         <button type="submit">Adicionar</button>
       </form>
+
+      {erro && <p>{erro}</p>}
 
       <ul>
         {ideas.map((idea) => (
@@ -69,12 +77,12 @@ const concluidas = ideas.filter((idea) => idea.feita).length;
           </li>
         ))}
       </ul>
+
+      <footer>
+        {`${total} ideias no painel · ${concluidas} concluídas`}
+      </footer>
     </div>
   );
 }
-<footer>
-  {`${total} ideias no painel · ${concluidas} concluídas`}
-</footer>
-
 
 export default App;
