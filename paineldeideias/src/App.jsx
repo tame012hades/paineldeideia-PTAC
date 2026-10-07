@@ -11,7 +11,12 @@ function App() {
       return;
     }
 
-    setIdeas([...ideas, idea]);
+    const newIdea = {
+      id: Date.now(),
+      text: idea,
+    };
+
+    setIdeas([...ideas, newIdea]);
     setIdea("");
   }
 
@@ -29,9 +34,11 @@ function App() {
         <button type="submit">Adicionar</button>
       </form>
 
-      {ideas.map((idea, index) => (
-        <p key={index}>{idea}</p>
-      ))}
+      <ul>
+        {ideas.map((idea) => (
+          <li key={idea.id}>{idea.text}</li>
+        ))}
+      </ul>
     </div>
   );
 }
